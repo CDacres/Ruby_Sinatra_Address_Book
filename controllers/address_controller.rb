@@ -6,7 +6,7 @@ class AddressController < Sinatra::Base
 	set :root, File.join(File.dirname(__FILE__), "..")
 	set :views, Proc.new { File.join(root, 'views') }
 
-	$addresses = [{
+	$contacts = [{
 	  name: "Harry Potter",
 	  address: "The Cupboard Under the Stairs, 4 Privet Drive, Little Whinging, Surrey, England, Great Britain"
 	},
@@ -29,7 +29,7 @@ class AddressController < Sinatra::Base
 
 	get '/addresses' do
 		@page_header = "All Contacts"
-		@addresses = $addresses
+		@contacts = $contacts
 		erb :"addresses/index"
 	end	
 
@@ -39,7 +39,7 @@ class AddressController < Sinatra::Base
 
 	get '/addresses/:id' do
 		id = params[:id].to_i
-		@address = $addresses[id]
+		@contacts = $contacts[id]
 		erb :"addresses/show"
 	end
 
@@ -48,8 +48,22 @@ class AddressController < Sinatra::Base
 			name: params[:name],
 			address: params[:address]
 		}
-		$addresses << new_contact
+		$contacts << new_contact
 		redirect "/addresses"
 	end
+
+	get '/addresses/:id/edit' do
+		@id = params[:id].to_i
+		@contact = $contacts[@id]
+		erb :"addresses/edit"
+	end
+
+	put "/addresses/:id" do
+		id = params[:id].to_i
+		$contacts[id][:name] = params[:name]
+		$contacts[id][:address] = params[:address]
+		redirect "/addresses/#{id}"
+	end
+
 
 end

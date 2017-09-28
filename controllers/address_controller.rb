@@ -33,10 +33,23 @@ class AddressController < Sinatra::Base
 		erb :"addresses/index"
 	end	
 
+	get '/addresses/new' do
+		erb :"addresses/new"
+	end
+
 	get '/addresses/:id' do
 		id = params[:id].to_i
 		@address = $addresses[id]
 		erb :"addresses/show"
+	end
+
+	post "/addresses" do
+		new_contact = {
+			name: params[:name],
+			address: params[:address]
+		}
+		$addresses << new_contact
+		redirect "/addresses"
 	end
 
 end

@@ -19,12 +19,18 @@ class AddressController < Sinatra::Base
 	  address: "32 Windsor Gardens, London, England, Great Britain"
 	},
 	{
-	  name: "Luna Lovegood"
-	  address: "Lovegood House,Ottery St Catchpole, Devon, England, Great Britain"
+	  name: "Luna Lovegood",
+	  address: "Lovegood House, Ottery St Catchpole, Devon, England, Great Britain"
 	},
 	{
-	  name: "Spongebob Squarepants"
+	  name: "Spongebob Squarepants",
 	  address: "124 Conch Street, Bikini Bottom, Pacific Ocean"
 	}]
+
+	get '/addresses' do
+		@page_header = "All Contacts"
+		@addresses = $addresses
+		erb :"addresses/index"
+	end	
 
 end

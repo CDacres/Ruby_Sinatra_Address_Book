@@ -38,8 +38,8 @@ class AddressController < Sinatra::Base
 	end
 
 	get '/addresses/:id' do
-		id = params[:id].to_i
-		@contacts = $contacts[id]
+		@id = params[:id].to_i
+		@contacts = $contacts[@id]
 		erb :"addresses/show"
 	end
 
@@ -65,5 +65,9 @@ class AddressController < Sinatra::Base
 		redirect "/addresses/#{id}"
 	end
 
-
+	delete "/addresses/:id" do
+		id = params[:id].to_i
+		$contacts.delete_at(id)
+		redirect "/addresses"
+	end
 end

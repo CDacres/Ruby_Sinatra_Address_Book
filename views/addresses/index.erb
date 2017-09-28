@@ -1,7 +1,9 @@
-<h1><%= @page_header %></h1>
+<h2><%= @page_header %></h2>
 
-<% @addresses.each do |address| %>
+<% @addresses.each_with_index do |address, index| %>
 
-<h2>Name: <%= address[:name] %></h2>
+<a href="/addresses/<%= index %>">
+	<h3>Name: <%= address[:name] %></h3>
+</a>
 
 <% end %>

@@ -33,4 +33,10 @@ class AddressController < Sinatra::Base
 		erb :"addresses/index"
 	end	
 
+	get '/addresses/:id' do
+		id = params[:id].to_i
+		@address = $addresses[id]
+		erb :"addresses/show"
+	end
+
 end
